@@ -1,7 +1,7 @@
 //firestore
 const db =firebase.firestore();
 
-//registro
+//-----registro
 const registroForm = document.querySelector('#registro-form');
 
 var myModalRe = new bootstrap.Modal(document.getElementById('registroModal'), focus)
@@ -28,7 +28,10 @@ auth
 
 });
 
-//ingreso
+//--- vatr ---
+
+
+//-----ingreso
 const ingresoForm = document.querySelector('#login-form');
 var myModalIn = new bootstrap.Modal(document.getElementById('ingresoModal'), focus)
 
@@ -41,14 +44,14 @@ ingresoForm.addEventListener('submit', e => {
     .signInWithEmailAndPassword(correo, contraseña)
     .then(userCredential => {
         const cUser = correo
-        
+        getDoc(correo);
         //limpiar fomrulario
         ingresoForm.reset();
         //cerrar modal 
         myModalIn.hide()
         //$('#ingresoModal').modal('hide')
         
-        console.log('ingreso correcto ' + cUser)
+        //console.log('ingreso correcto ' + cUser)
     })
     console.log('error al auntificar usuario');
 
@@ -71,7 +74,7 @@ auth.signOut().then(() => {
 
 const taskForm = document.getElementById('task-form');
 
-//function
+//---- function saveTask ----
 const saveTask = (email, id_usuario, nombre, telefono) =>
 db.collection('users').doc(email).set({
     email,
@@ -81,8 +84,30 @@ db.collection('users').doc(email).set({
     //tipo_usuario
 });
 
+//---- function get doc ----
+const getDoc = (email) =>
+db.collection('users').doc(email).get()
+    .then(function(doc){
+        if(doc.exists){
+            taskForm['f-correo'].value = doc.data().email;
+            taskForm['f-id'].value = doc.data().id_usuario;
+            taskForm['f-nombre'].value = doc.data().nombre;
+            taskForm['f-telefono'].value = doc.data().telefono;
+           // console.log('usario ingreso' + taskForm['f-correo'].value);
+        }
+        else{
+            console.log("no existe docuemnto");
+        }
+    })
+    .catch(function(error){
+        console.log('error', error);
+    })
+    //tipo_usuario
+
+
 // leer datos
 
+/*
 const getTask = () => db.collection('users').get();
 
 window.addEventListener('DOMContentLoaded', async (e) => {
@@ -106,12 +131,13 @@ window.addEventListener('DOMContentLoaded', async (e) => {
     
 
 })
-
+*/
 //opcion dos
 
 
 
-//data form
+
+//----data form
 taskForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -127,6 +153,8 @@ taskForm.addEventListener('submit', async (e) => {
     email.focus();
 });
 
+
+
 //event
 //list for auth state changes
 auth.onAuthStateChanged(user => {
@@ -134,7 +162,7 @@ auth.onAuthStateChanged(user => {
        fs.collection('users')
             .get()
             .then((snapshot) => {
-               console.log('snap auth '+ snapshot.docs)
+              // console.log('snap auth '+ snapshot.docs)
               
               // const task = doc.data();
                //task.id = doc.id
