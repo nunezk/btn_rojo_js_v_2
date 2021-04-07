@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conexión MATe</title>
+  <!--BOOTSTRAP CSS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <!--Navegcion-->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #005CB4;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Conexión MATe</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #383838;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ingresoModal">Ingreso</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registroModal">Registro</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="logout">Desconectar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<!--main content-->
+<!--data form-->
+<div class="container p-4"> 
+  <div class="row">
+    <div class="col-md-6 offset-md-1">
+      <div class="card">
+        <div class="card-body">
+          <form id="task-form">
+            <div class="form-group">
+              Correo
+              <input
+              type="text"
+              id="f-correo"
+              class="form-control"
+              placeholder="Correo"
+              autofocus
+              />
+            </div>
+            <div class="form-group">
+              Id Empleado
+              <input
+              type="text"
+              id="f-id"
+              class="form-control"
+              placeholder="Id empleado"
+              />
+            </div>
+            <div class="form-group">
+              Nombre
+              <input
+              type="text"
+              id="f-nombre"
+              class="form-control"
+              placeholder="Nombre"
+              />
+            </div>
+            <div class="form-group">
+              Telefono
+              <input
+              type="text"
+              id="f-telefono"
+              class="form-control"
+              placeholder="Telefono"
+              />
+            </div>
+            <button class="btn btn-primary" id="btn-task-form">
+              Save
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Registro -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registro-form">
+          <div class="form-group">
+            <input type="email" id="signup-email" class="form-control" placeholder="Correo" required>
+          </div>
+          <input type="password" id="signup-password" class="form-control" placeholder="Contraseña" required>
+        </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+        </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ingreso -->
+<div class="modal fade" id="ingresoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ingreso usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="login-form">
+          <div class="form-group">
+            <input type="email" id="login-email" class="form-control" placeholder="Correo" required>
+          </div>
+          <input type="password" id="login-password" class="form-control" placeholder="Contraseña" required>
+        </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+        </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!--BOOTSTRAP SCRIPTS-->
+<!--Bundle-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+
+<!--FIREBASE SCRIPT-->
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyD0F8Im6vBJMRaOiKnwkazzv4CkfGMBtzc",
+    authDomain: "boton-de-emergencia-4.firebaseapp.com",
+    databaseURL: "https://boton-de-emergencia-4.firebaseio.com",
+    projectId: "boton-de-emergencia-4",
+    storageBucket: "boton-de-emergencia-4.appspot.com",
+    messagingSenderId: "966840799810",
+    appId: "1:966840799810:web:b208a2a5d31c07d9fb93db",
+    measurementId: "G-TERSWBY9Q2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const auth = firebase.auth();
+  const fs = firebase.firestore();
+  
+</script>
+
+<!--CUSTOM CODE-->
+<script src="main.js"></script>
+
+</body>
+
+</html>
