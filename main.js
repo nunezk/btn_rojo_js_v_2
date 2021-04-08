@@ -1,6 +1,20 @@
 //firestore
 const db =firebase.firestore();
 
+//---- login check
+const loggedOutLinks = document.querySelectorAll('.logged-out')
+const loggedinLinks = document.querySelectorAll('.logged-in')
+
+const loginCheck = user => {
+    if (user) {
+        loggedinLinks.forEach(link => link.style.display = 'block');
+        loggedOutLinks.forEach(link => link.style.display = 'none');
+    } else {
+        loggedinLinks.forEach(link => link.style.display = 'none');
+        loggedOutLinks.forEach(link => link.style.display = 'block');
+    }
+}
+
 //-----registro
 const registroForm = document.querySelector('#registro-form');
 
@@ -43,7 +57,7 @@ ingresoForm.addEventListener('submit', e => {
     auth 
     .signInWithEmailAndPassword(correo, contraseña)
     .then(userCredential => {
-        const cUser = correo
+        
         getDoc(correo);
         //limpiar fomrulario
         ingresoForm.reset();
@@ -53,7 +67,7 @@ ingresoForm.addEventListener('submit', e => {
         
         //console.log('ingreso correcto ' + cUser)
     })
-    console.log('error al auntificar usuario');
+    
 
 });
 
@@ -137,7 +151,8 @@ window.addEventListener('DOMContentLoaded', async (e) => {
 
 
 
-//----data form
+//----data form ok si sirve pero cambiar de listener a boton.
+/*
 taskForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -149,35 +164,79 @@ taskForm.addEventListener('submit', async (e) => {
 
     await saveTask(email.value, id_usuario.value, nombre.value, telefono.value,);
 
-    taskForm.reset();
+    //taskForm.reset();
     email.focus();
 });
+*/
+//purebva de el de arriba s iquedo
+const saveCampo = document.querySelector('#btn-task-form')
+saveCampo.addEventListener('click', async e => {
+    e.preventDefault();
+    const email = taskForm['f-correo'];
+    const id_usuario = taskForm['f-id'];
+    const nombre = taskForm['f-nombre'];
+    const telefono = taskForm['f-telefono'];
+    //const tipo_usuario = "";   
+
+    await saveTask(email.value, id_usuario.value, nombre.value, telefono.value,);
+
+    taskForm.reset();
+    email.focus();
+}); 
+    
 
 
 
-//event
-//list for auth state changes
+
+
+//----  hide div ----
+/* se asigna en auth
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+*/
+
+//---- buscar ayuda ----
+function buscarAyuda(){
+
+
+}
+
+
+
+//---- auth state changes ----//
+
+var msjAuth = document.getElementById("msj");
 auth.onAuthStateChanged(user => {
     if (user) {
-       fs.collection('users')
-            .get()
-            .then((snapshot) => {
-              // console.log('snap auth '+ snapshot.docs)
-              
-              // const task = doc.data();
-               //task.id = doc.id
-               //console.log('tarea lisener; ' + task);
-                
-              //  console.log(firebase.auth().currentUser);
-            }) 
-        
-        //console.log('Auth curr us ' + cUser);
-        //console.log('auth curr usr' + firebase.auth().currentUser)
-       // console.log('auth in '+ cUser)
-            //console.log('auth cu ' + cUser)
+        //show div
+        var x = document.getElementById("myDIV");
+            x.style.display = "block";
+            loginCheck(user);
+        //    console.log('auth: Usuario activo');
+            //msj auth
+            msjAuth.innerHTML = "<p></p>";
+
+ //           db.collection('users').doc(email).get()
+ //   .then(function(doc){
+ //       if(doc.exists){
+ //           getDoc();
+
     } else {
-        
         console.log('auth: no hay sesion activa')
-        
+        //hide Div
+        var x = document.getElementById("myDIV");
+            x.style.display = "none";
+            loginCheck(user)
+           // console.log('auth;: ingresa para solicitar ayuda');
+            
+           // msj auth 
+           msjAuth.innerHTML = "<p>Ingresa a la aplicación</p>";
+
     }
 })

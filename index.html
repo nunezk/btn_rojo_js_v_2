@@ -24,13 +24,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item logged-out" style="display: none;">
             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ingresoModal">Ingreso</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item logged-adm" style="display: none;">
             <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registroModal">Registro</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item logged-in" style="display: none;">
             <a class="nav-link" href="#" id="logout">Desconectar</a>
           </li>
         </ul>
@@ -40,7 +40,7 @@
 
 <!--main content-->
 <!--data form-->
-<div class="container p-4"> 
+<div class="container p-4" id= "myDIV"> 
   <div class="row">
     <div class="col-md-6 offset-md-1">
       <div class="card">
@@ -51,8 +51,9 @@
               <input
               type="text"
               id="f-correo"
-              class="form-control"
+              class="form-control" 
               placeholder="Correo"
+              
               autofocus
               />
             </div>
@@ -83,12 +84,12 @@
               placeholder="Telefono"
               />
             </div>
-            <button class="btn btn-primary" id="btn-task-form">
+            
+            <button class="btn btn-primary logged-adm" style="display: none;" id="btn-task-form">
               Save
             </button>
-            <button class="btn btn-secondary" id="btn-task-find">
-              Help
-            </button>
+            <button class="btn btn-primary" onclick="buscarAyuda()">Help</button>
+            
           </div>
           </form>
 
@@ -98,6 +99,12 @@
     </div>
   </div>
 </div>
+
+<!-- boton funcion  
+  <button onclick="myFunction()">Try it</button>
+  Name <input type="nameBox" type="text" oninput="Update(this.value,'name')"> 
+-->
+<p class="text-center" id="msj"></p>
 
 <!-- Modal Registro -->
 <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
