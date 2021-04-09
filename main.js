@@ -168,7 +168,7 @@ taskForm.addEventListener('submit', async (e) => {
     email.focus();
 });
 */
-//purebva de el de arriba s iquedo
+//purebva de el de arriba si quedo
 const saveCampo = document.querySelector('#btn-task-form')
 saveCampo.addEventListener('click', async e => {
     e.preventDefault();
